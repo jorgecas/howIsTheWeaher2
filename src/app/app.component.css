@@ -1,0 +1,21 @@
+.location-search__container {
+    padding: 0.4rem;
+}
+
+.location-search-result {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.location-search-result li {
+    padding: .2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: #cee;
+}
+.location-search-result span:hover {
+    background-color: #888;
+    color: #cee;
+    display: block;
+    width: 100%;
+}
