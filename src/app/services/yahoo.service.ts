@@ -56,15 +56,17 @@ export class YahooService {
                                           p.admin1 && p.admin1.content, p.admin && p.admin1.code, 
                                           p.postal && p.postal.content,
                                           0, 0,
-                                          p.locality1 && p.locality1.woeid,
-                                          ''));
+                                          '',
+                                          p.locality1 && p.locality1.woeid
+                                          ));
     } else if (places) {
       return [new Location(places.country && places.country.content, places.country && places.country.code, 
                           places.admin1 && places.admin1.content, places.admin && places.admin1.code, 
                           places.postal && places.postal.content,
                           0, 0,
+                          '',
                           places.locality1 && places.locality1.woeid,
-                          '')
+                          )
               ];
     }
     return [new Location()];

@@ -4,6 +4,8 @@ import { WeatherService } from './weather.service';
 import { YahooService } from './services/yahoo.service';
 import { ApixuService } from './services/apixu.service';
 
+import { Location } from './models/location';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,35 +13,46 @@ import { ApixuService } from './services/apixu.service';
   providers: [WeatherService, YahooService, ApixuService]
 })
 export class AppComponent {
-  private timeout;
+  private _timeout;
+  private _timeoutValue: number = 500;
 
-  public title = 'app works!';
+  public Title = 'How is the weather';
   public Forecast: string;
   public Location: string;
   public Locations: any;
+  public Services;
 
-  constructor(private weatherService: WeatherService) {
-
+  constructor(private _weatherService: WeatherService) {
+    this.Services = this._weatherService.getServices();
   }
 
-  getForecast(query: string) {
+  getForecast(location: Location) {
+    if(location && location.Id) {
+      this.Location = location.toString();
+      this.Locations = [];
 
-    this.Location = query;
-    this.Locations = [];
-
-    let forecast = this.weatherService.getForecast(query);
-    forecast.subscribe(v => {
-      this.Forecast = JSON.stringify(v);
-    })
+      let forecast = this._weatherService.getForecast(location.Id);
+      forecast.subscribe(v => {
+        this.Forecast = JSON.stringify(v);
+      });
+    }
   }
 
   searchLocation(query: string) {
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      let locations = this.weatherService.searchLocation(query);
-      locations && locations.subscribe(loc => {
-        this.Locations = loc;
-      });
-    }, 1000);
+    if(query) {
+      clearTimeout(this._timeout);
+      this._timeout = setTimeout(() => {
+        let locations = this._weatherService.searchLocation(query);
+        locations && locations.subscribe(loc => {
+          this.Locations = loc;
+        });
+      }, this._timeoutValue);
+    }
+  }
+
+  changeProvider(provider: string) {
+    this.Location = null;
+    this.Forecast = null;
+    this._weatherService.changeProvider(provider);
   }
 }

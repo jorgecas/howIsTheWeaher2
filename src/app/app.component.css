@@ -3,19 +3,19 @@
 }
 
 .location-search-result {
+    position: absolute;
+    width: 100%;
     list-style: none;
     padding-left: 0;
     margin: 0;
 }
 .location-search-result li {
-    padding: .2rem;
-    font-size: 1.2rem;
     cursor: pointer;
-    background-color: #cee;
+    background-color: #dee;
 }
 .location-search-result span:hover {
     background-color: #888;
-    color: #cee;
+    color: #dee;
     display: block;
     width: 100%;
 }

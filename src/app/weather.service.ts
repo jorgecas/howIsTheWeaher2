@@ -12,23 +12,31 @@ import { YahooService } from './services/yahoo.service';
 @Injectable()
 export class WeatherService {
   public services = [];
-  private selectedService: any;
+  private _selectedService: any;
+  
   constructor(private _apixu: ApixuService, private _yahoo: YahooService) {
     this.services = [_apixu, _yahoo];
-    this.selectedService = _yahoo;
+    this._selectedService = _yahoo;
    }
 
    getServices () {
      return this.services.map(s => s.Name);
    }
+   getSelectedService () {
+     return this._selectedService.Name;
+   }
 
    getForecast(query?: string): Observable<any> {
-     return this.selectedService.getForecast();
+     return this._selectedService.getForecast();
    }
 
    searchLocation(query?: string): Observable<any> {
      if(query) {
-      return this.selectedService.searchLocation(query);
-    }
+       return this._selectedService.searchLocation(query);
+     }
+   }
+   
+   changeProvider(provider?: string) {
+     this._selectedService = this.services.find(s => s.Name === provider) || this.services[0];
    }
 }

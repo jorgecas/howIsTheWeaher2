@@ -1,7 +1,18 @@
+<div class="services__container">
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Service
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li *ngFor="let service of Services" (click)="changeProvider(service)">
+        <a href="#">{{service}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
 <div class="location-search__container">
   <input type="search" class="form-control" placeholder="Type Location" [(ngModel)]="Location" (keyup)="searchLocation(Location)">
-  <ul class="location-search-result">
-    <li *ngFor="let loc of Locations" (click)="getForecast(loc.Id)">
+  <ul class="location-search-result list-group">
+    <li class="list-group-item" *ngFor="let loc of Locations" (click)="getForecast(loc)">
       <span>{{loc.toString()}}</span>
     </li>
   </ul>
