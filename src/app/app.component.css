@@ -1,21 +1,75 @@
-.location-search__container {
-    padding: 0.4rem;
+header {
+    text-align: left;
 }
 
+footer {
+    text-align: center;
+}
+
+div {
+    border: solid 1px #fff;
+}
+.main__container {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.left__container {
+    flex: 1 0 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.right__container {
+    flex: 1 1 50%;
+}
+
+.services__label {
+    flex: 0 0 10%;
+}
+.services__dropdown {
+    flex: 1 1 auto;
+    padding: 0.3rem;
+    border: solid 1px #888;
+    border-radius: 0.2rem 0.2rem 0 0;
+}
+.services:invalid {
+    color: #ddd;
+}
+
+.location-search__input {
+    padding: 0.3rem;
+    border: solid 1px #888;
+    border-radius: 0.2rem;
+}
+
+.services__container, .location-search__container {
+    display: flex;
+    padding: 0.4rem;
+}
+.location-search__autocomplete__container {
+    flex: 1 1 auto;
+}
+.location-search__input {
+    width: 100%;
+}
 .location-search-result {
     position: absolute;
-    width: 100%;
     list-style: none;
     padding-left: 0;
     margin: 0;
 }
 .location-search-result li {
     cursor: pointer;
-    background-color: #dee;
+    background-color: #eee;
 }
 .location-search-result span:hover {
     background-color: #888;
     color: #dee;
     display: block;
     width: 100%;
+}
+
+.current-weather__container, .forecast-weather__container {
+    flex: 1 1 auto;
 }

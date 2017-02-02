@@ -40,9 +40,10 @@ export class YahooService {
 
   private handleForecastResponse(value: Response) {
     let result = value.json(),
-        forecast = result.query && result.query.count && result.query.results.channel;
+        forecast = result.query && result.query.count && result.query.results.channel,
+        current;
     if(forecast){
-        return forecast;
+        return {current: current, forecast: forecast};
     }
     return null;
   }

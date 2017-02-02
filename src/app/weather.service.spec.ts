@@ -29,9 +29,8 @@ describe('WeatherService', () => {
   });
 
     it('should have a assign a default provider if an invalid one is selected', inject([WeatherService], (service: WeatherService) => {
-    service.changeProvider('Invalid');
-
-    const selectedService = service.getSelectedService();
-    expect(selectedService).toBeTruthy();
-  }));
+      service.changeProvider('Invalid');
+      const selectedService = service.getSelectedService();
+      expect(selectedService).toBeTruthy();
+    }));
 });

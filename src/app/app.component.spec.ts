@@ -51,20 +51,21 @@ describe('AppComponent', () => {
     expect(component._weatherService.getServices().length).toBeGreaterThanOrEqual(2);
   }));
 
-  it('should blank location and forecast result if selected provider changes', async(() => {
+  it('should blank Location, Locations and Forecast result if selected provider changes', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const component = fixture.debugElement.componentInstance;
     component.changeProvider('Yahoo');
-    component.Location = 'Location';
+    component.SelectedLocation = 'Location';
     component.Forecast = 'Forecast';
     
     fixture.detectChanges();
 
-    expect(component.Location).toEqual('Location');
+    expect(component.SelectedLocation).toEqual('Location');
     expect(component.Forecast).toEqual('Forecast');
 
     component.changeProvider('Apixu');
-    expect(component.Location).toBeNull();
+    expect(component.SelectedLocation).toBeNull();
+    expect(component.Locations.length).toEqual(0);
     expect(component.Forecast).toBeNull();
   }));
 
@@ -103,7 +104,7 @@ describe('AppComponent', () => {
 
     component.getForecast();
     component.getForecast(null);
-    component.getForecast(Location);
+    component.getForecast(location);
     expect(component._weatherService.getForecast).toHaveBeenCalledTimes(0);
   }));
 
@@ -113,8 +114,7 @@ describe('AppComponent', () => {
     
     let location = new Location(null, null, null, null, null, 0, 0, null, 'Id');
     spyOn(component._weatherService, 'getForecast');
-
-    component.getForecast(Location);
+    component.getForecast(location);
     expect(component._weatherService.getForecast).toHaveBeenCalled();
   }));
 });

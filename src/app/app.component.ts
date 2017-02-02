@@ -5,6 +5,7 @@ import { YahooService } from './services/yahoo.service';
 import { ApixuService } from './services/apixu.service';
 
 import { Location } from './models/location';
+import { CurrentweatherComponent } from './currentweather/currentweather.component';
 
 @Component({
   selector: 'app-root',
@@ -18,22 +19,24 @@ export class AppComponent {
 
   public Title = 'How is the weather';
   public Forecast: string;
-  public Location: string;
+  public SelectedLocation: string;
   public Locations: any;
   public Services;
+  public SelectedService: string;
 
   constructor(private _weatherService: WeatherService) {
     this.Services = this._weatherService.getServices();
+    this.SelectedService = this._weatherService.getSelectedService();
   }
 
   getForecast(location: Location) {
     if(location && location.Id) {
-      this.Location = location.toString();
+      this.SelectedLocation = location.toString();
       this.Locations = [];
-
+      this.Forecast = null;
       let forecast = this._weatherService.getForecast(location.Id);
-      forecast.subscribe(v => {
-        this.Forecast = JSON.stringify(v);
+      forecast && forecast.subscribe(result => {
+        this.Forecast = result;
       });
     }
   }
@@ -41,6 +44,7 @@ export class AppComponent {
   searchLocation(query: string) {
     if(query) {
       clearTimeout(this._timeout);
+      this.Locations = [];
       this._timeout = setTimeout(() => {
         let locations = this._weatherService.searchLocation(query);
         locations && locations.subscribe(loc => {
@@ -51,8 +55,10 @@ export class AppComponent {
   }
 
   changeProvider(provider: string) {
-    this.Location = null;
+    this.SelectedLocation = null;
+    this.Locations = [];
     this.Forecast = null;
     this._weatherService.changeProvider(provider);
+    this.SelectedService = this._weatherService.getSelectedService();
   }
 }
