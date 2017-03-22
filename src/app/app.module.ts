@@ -4,14 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { CurrentweatherComponent } from './currentweather/currentweather.component';
-import { ForecastweatherComponent } from './forecastweather/forecastweather.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CurrentweatherComponent,
-    ForecastweatherComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,19 +5,18 @@ import { YahooService } from './services/yahoo.service';
 import { ApixuService } from './services/apixu.service';
 
 import { Location } from './models/location';
-import { CurrentweatherComponent } from './currentweather/currentweather.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [WeatherService, YahooService, ApixuService]
+  providers: [WeatherService, YahooService, ApixuService],
 })
 export class AppComponent {
   private _timeout;
   private _timeoutValue: number = 500;
 
-  public Title = 'How is the weather';
+  public Title = 'How is the weather?';
   public Forecast: string;
   public SelectedLocation: string;
   public Locations: any;
@@ -30,12 +29,14 @@ export class AppComponent {
   }
 
   getForecast(location: Location) {
-    if(location && location.Id) {
       this.SelectedLocation = location.toString();
       this.Locations = [];
       this.Forecast = null;
+
+    if(location && location.Id) {
       let forecast = this._weatherService.getForecast(location.Id);
       forecast && forecast.subscribe(result => {
+        console.log(result);
         this.Forecast = result;
       });
     }

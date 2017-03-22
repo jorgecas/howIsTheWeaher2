@@ -1,10 +1,10 @@
 <header>
-  <h1>How is the weather</h1>
+  <h1>How is the weather?</h1>
 </header>
 <div class="main__container">
   <div class="left__container">
     <div class="services__container">
-      <select class="services__dropdown" (change)='changeProvider(service)'>
+      <select class="services__dropdown" (change)='changeProvider($event.target.value)'>
         <option *ngFor='let service of Services' value="{{service}}" [selected]="service === SelectedService" >{{service}}</option>
       </select>
     </div>
@@ -19,15 +19,45 @@
       </div>
     </div>
     <div class="current-weather__container" *ngIf="Forecast && Forecast.current">
-      <img [src]="Forecast.current.Icon" />
-      <span>{{Forecast.current.Condition}}</span>
+      <span class="current-weather__element">{{Forecast.current.Date.toLocaleString()}}</span>
+      <span class="current-weather__element">
+        <img class="current-weather__icon" [src]="Forecast.current.Icon" />
+      </span>
+      <span class="current-weather__element temperature">{{Forecast.current.Temperature}} &deg;{{Forecast.current.Units.temperature}}</span>
+      <span class="current-weather__element">{{Forecast.current.Condition}}</span>
+      <span class="current-weather__element">Humidity: {{Forecast.current.Humidity}} %</span>
+      <span class="current-weather__element">Wind: {{Forecast.current.WindSpeed}}{{Forecast.current.Units.speed}} <i>({{Forecast.current.WindDirection}})</i></span>
 
     </div>
     <div class="forecast-weather__container" *ngIf="Forecast && Forecast.forecast">
+      <h2>Forecast</h2>
+
+      <div class="forecast-weather day__title">
+        <div class="forecast-weather day__date">Date</div>
+        <div class="forecast-weather day__condition">Condition</div>
+        <div class="forecast-weather day__temperature">Min. Temp.</div>
+        <div class="forecast-weather day__temperature">Max. Temp.</div>
+      </div>
+
+      <div class="forecast-weather day" *ngFor='let day of Forecast.forecast.Days'>
+        <div class="forecast-weather day__date">{{day.Date.toDateString()}}</div>
+        <div class="forecast-weather day__condition">{{day.Condition}}</div>
+        <div class="forecast-weather day__temperature">{{day.MinTemperature}} &deg;{{Forecast.forecast.Units.temperature}}</div>
+        <div class="forecast-weather day__temperature">{{day.MaxTemperature}} &deg;{{Forecast.forecast.Units.temperature}}</div>
+      </div>
     </div>
   </div>
   <div class="right__container">
-    Info
+    <h2>This is a simple app I made as an introduction to Angular2.</h2>
+    <p>There might be a lot of conceptual errors in my implementation, but I just wanted to understand the basics.</p>
+    <p>This app is supposed to be a "Weather app" which can retrieve the current weather and forecast for a given place</p>
+    <p>What this application do, is basically querying one of two available public wheather apis, 
+      in this case <a href="http://apixu.com">Apixu</a> and <a href="https://developer.yahoo.com/weather/">Yahoo Weather API</a>, 
+      first to search for a place, then for the forecast. 
+      Since they use a different method to query the data, and the responses are quite different, there could be some 
+      differences in how the data is displayed both in the search field and in the result section</p> 
+    <p>The version of <a href="https://github.com/angular/angular-cli">angular-cli</a> I'm using is 1.0.0-beta.25.5</p>
+    <p>You can take a look at the source code at...</p>
   </div>
 </div>
 <footer>

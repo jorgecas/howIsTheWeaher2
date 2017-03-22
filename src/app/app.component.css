@@ -1,26 +1,32 @@
 header {
     text-align: left;
+    padding-left: 1rem;
 }
 
 footer {
+    padding-top: 1rem;
     text-align: center;
 }
 
-div {
-    border: solid 1px #fff;
+a {
+    color: #8ad;
 }
+
 .main__container {
     display: flex;
     flex: 1 1 auto;
+    border-top: solid 1px #ddd;
 }
 
 .left__container {
     flex: 1 0 50%;
     display: flex;
     flex-direction: column;
+    border-right: solid 1px #ddd;
 }
 
 .right__container {
+    padding: 1rem;
     flex: 1 1 50%;
 }
 
@@ -61,7 +67,8 @@ div {
 }
 .location-search-result li {
     cursor: pointer;
-    background-color: #eee;
+    background-color: #aaa;
+    color: #222;
 }
 .location-search-result span:hover {
     background-color: #888;
@@ -70,6 +77,48 @@ div {
     width: 100%;
 }
 
-.current-weather__container, .forecast-weather__container {
-    flex: 1 1 auto;
+.current-weather__container {
+    padding: 1rem;
+    flex: 1 1 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.forecast-weather__container  {
+    padding: 1rem;
+    flex: 1 1 60%;
+}
+
+.current-weather__element {
+    font-size: 1.5rem;
+    flex: 0 1 10%;
+}
+
+.current-weather__element.temperature {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.forecast-weather.day {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.forecast-weather.day__title {
+    display: flex;
+    justify-content: flex-start;
+    font-weight: bold;
+}
+
+.forecast-weather.day__date {
+    flex: 0 0 20%;
+}
+
+.forecast-weather.day__condition {
+    flex: 0 0 30%;
+}
+
+.forecast-weather.day__temperature {
+    flex: 0 0 10%;
 }

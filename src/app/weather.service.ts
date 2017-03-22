@@ -27,9 +27,11 @@ export class WeatherService {
    }
 
    getForecast(query?: string): Observable<any> {
-     return this._selectedService.getForecast();
+     if(query) {
+      return this._selectedService.getForecast(query);
+    }
    }
-
+   
    searchLocation(query?: string): Observable<any> {
      if(query) {
        return this._selectedService.searchLocation(query);
