@@ -45,23 +45,23 @@ export class ApixuService {
         forecast,
         units;
     if(result) {
-      if(result.location) {
-        location = new Location(result.location.country, null, result.location.name, result.location.region, null, result.location.lat, result.location.lon, null, result.location.tz_id);
-      }
-      if(result.current) {
         units = {
           distance: 'mi',
           pressure: 'in',
           speed: 'mph',
           temperature: 'F'
         };
+      if(result.location) {
+        location = new Location(result.location.country, null, result.location.name, result.location.region, null, result.location.lat, result.location.lon, null, result.location.tz_id);
+      }
+      if(result.current) {
         current = new CurrentWeather(location, result.current.condition.text, result.current.temp_f, result.current.humidity, 
                               result.current.wind_mph, result.current.wind_dir, result.current.pressure_in, 
                               result.current.precip_in, new Date(result.current.last_updated), result.current.condition.icon, units);
       }
       if(result.forecast) {
         let days = result.forecast.forecastday.map(day => new DayWeather(day.day.maxtemp_f, day.day.mintemp_f, day.day.condition.text, day.day.condition.icon, new Date(Date.parse(day.date))));
-        forecast = new Forecast(days);
+        forecast = new Forecast(days, units);
       }
       return {current: current, forecast: forecast };
     }
